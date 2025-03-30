@@ -12,7 +12,7 @@ CORS(app)  # 🔥 Enable CORS for all requests
 SMTP_SERVER = "mail.primelend.online"
 SMTP_PORT = 465
 SMTP_USER = "supportken@primelend.online"
-SMTP_PASSWORD = "your-email-password"
+SMTP_PASSWORD = "123Junior$$"
 
 # 🔹 Email Sending Function
 def send_email(to_email, subject, body):
