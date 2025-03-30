@@ -27,7 +27,7 @@ def send_email(to_email, subject, body):
     msg["Subject"] = subject
     msg.attach(MIMEText(body, "plain"))
 
-   try:
+try:
     server.sendmail(from_email, to_email, msg.as_string())
     server.quit()
     print("✅ Email sent successfully to:", to_email)
