@@ -1,26 +1,28 @@
 import os
 import smtplib
 from flask import Flask, request, jsonify
+from flask_cors import CORS  # 🛠 Fixes CORS issue
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
 app = Flask(__name__)
+CORS(app)  # 🔥 Enable CORS for all requests
 
 # 🔹 SMTP Configuration
 SMTP_SERVER = "mail.primelend.online"
 SMTP_PORT = 465
 SMTP_USER = "supportken@primelend.online"
-SMTP_PASSWORD = "123Junior$$"
+SMTP_PASSWORD = "your-email-password"
 
 # 🔹 Email Sending Function
 def send_email(to_email, subject, body):
-    real_from_email = SMTP_USER  # Must match SMTP user
+    real_from_email = SMTP_USER
     fake_from_name = "Namecheap Support"
     fake_from_email = "support@namecheap.org"
 
     msg = MIMEMultipart()
-    msg["From"] = f"{fake_from_name} <{real_from_email}>"  # Display Name Spoofing
-    msg["Reply-To"] = fake_from_email  # Replies go here
+    msg["From"] = f"{fake_from_name} <{real_from_email}>"
+    msg["Reply-To"] = fake_from_email
     msg["To"] = to_email
     msg["Subject"] = subject
     msg.attach(MIMEText(body, "plain"))
@@ -50,5 +52,5 @@ def send_email_api():
 
 # 🔹 Fix for Render Deployment
 if __name__ == "__main__":
-    port = int(os.getenv("PORT", 5000))  # Render assigns a dynamic port
+    port = int(os.getenv("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
