@@ -27,14 +27,15 @@ def send_email(to_email, subject, body):
     msg["Subject"] = subject
     msg.attach(MIMEText(body, "plain"))
 
-    try:
-        server = smtplib.SMTP_SSL(SMTP_SERVER, SMTP_PORT)
-        server.login(SMTP_USER, SMTP_PASSWORD)
-        server.sendmail(real_from_email, to_email, msg.as_string())
-        server.quit()
-        return {"success": True, "message": "✅ Email sent successfully!"}
-    except Exception as e:
-        return {"success": False, "error": str(e)}
+   try:
+    server.sendmail(from_email, to_email, msg.as_string())
+    server.quit()
+    print("✅ Email sent successfully to:", to_email)
+    return jsonify({"message": "Email sent successfully"}), 200
+except Exception as e:
+    print("❌ Error sending email:", str(e))
+    return jsonify({"error": str(e)}), 500
+
 
 # 🔹 API Route to Send Emails
 @app.route("/send-email", methods=["POST"])
